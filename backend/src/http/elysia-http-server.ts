@@ -32,14 +32,18 @@ export class ElysiaHttpServer implements IHttpServer<ElysiaHttpServer> {
 				}),
 				400: t.Object({
 					errors: t.Array(t.String()),
-				})
+				}),
 			};
 
-			this.app[method as "get" | "post" | "delete"](path, elysiaAdapter(controller), {
-				body: config?.validationSchema,
-				response: responses,
-				params: config?.params,
-			});
+			this.app[method as "get" | "post" | "delete"](
+				path,
+				elysiaAdapter(controller),
+				{
+					body: config?.validationSchema,
+					response: responses,
+					params: config?.params,
+				},
+			);
 		}
 		return this;
 	}

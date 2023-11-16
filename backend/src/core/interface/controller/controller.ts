@@ -3,7 +3,9 @@ import { DomainException } from "../../application/exception/domain-exception";
 import { IUseCase } from "../../application/use-case/i-use-case";
 import { IController } from "./i-controller";
 
-export class Controller<Input, Output> implements IController<Input, ControllerOutput> {
+export class Controller<Input, Output>
+	implements IController<Input, ControllerOutput>
+{
 	constructor(private useCase: IUseCase<Input, Output>) {}
 
 	public async execute(input: Input): Promise<ControllerOutput> {

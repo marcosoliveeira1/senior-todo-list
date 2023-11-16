@@ -6,20 +6,22 @@ export class DatabaseTodoRepository implements ITodoRepository {
 	constructor(private readonly db: IDatabaseConnection) {}
 
 	async save(todo: Todo): Promise<void> {
-
 		this.db.query<TodoModel, [string, string, boolean]>(
 			"INSERT INTO TODOS (id, description, done) VALUES ($1, $2, $3)",
 			[todo.id, todo.description.value, todo.done], // create a type for this
 		);
 	}
 	async updateDone(todo: Todo): Promise<void> {
-		await this.db.query<TodoModel, [boolean, string]>("UPDATE TODOS SET done = $1 WHERE id = $2", [
-			todo.done,
-			todo.id,
-		]);
+		await this.db.query<TodoModel, [boolean, string]>(
+			"UPDATE TODOS SET done = $1 WHERE id = $2",
+			[todo.done, todo.id],
+		);
 	}
 	async delete(id: string): Promise<void> {
-		await this.db.query<TodoModel, [string]>("DELETE FROM TODOS WHERE id = $1", [id]);
+		await this.db.query<TodoModel, [string]>(
+			"DELETE FROM TODOS WHERE id = $1",
+			[id],
+		);
 	}
 	async findAll(): Promise<Todo[]> {
 		const todos = await this.db.query<TodoModel, []>("SELECT * FROM TODOS");
