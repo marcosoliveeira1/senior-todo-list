@@ -20,25 +20,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v1
-        with:
-          version: 1.2.2
-
-      - name: Run Biome
-        run: cd backend &&biome ci .
-
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
 
       - name: Install packages
         run: cd backend && bun install
 
-      - name: Format code
-        run: cd backend && bun biome format --write ./src
-
-      - name: Lint code
-        run: cd backend && bun biome lint ./src --apply
+      - name: Run lint
+        run: cd backend && bun run lint
 
       - name: Run tests with coverage
         run: cd backend && bun run test:coverage
