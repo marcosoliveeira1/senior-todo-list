@@ -1,6 +1,6 @@
 export class CreateTodoInput {
-    constructor(
-        public readonly description: string,
-        public readonly id?: string
-    ) { }
+	constructor(
+		public readonly description: string,
+		public readonly id?: string,
+	) {}
 }

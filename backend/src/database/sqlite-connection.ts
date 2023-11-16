@@ -1,29 +1,31 @@
-import { Database } from "bun:sqlite";
+import { Database, SQLQueryBindings } from "bun:sqlite";
 import { IDatabaseConnection } from "./i-database-connection";
 
-
 export class SqliteConnection implements IDatabaseConnection {
-    private db;
-    constructor(environment: string = "development") {
-        this.db = new Database(`database/database.${environment}.sqlite`, { create: true });
+	private db;
+	constructor(environment = "development") {
+		this.db = new Database(`database/database.${environment}.sqlite`, {
+			create: true,
+		});
 
-        this.db.query(
-            `CREATE TABLE IF NOT EXISTS TODOS(
+		this.db
+			.query(
+				`CREATE TABLE IF NOT EXISTS TODOS(
             id TEXT PRIMARY KEY,
             description TEXT,
             done BOOLEAN
-          );`
-        ).run();
-    }
+          );`,
+			)
+			.run();
+	}
 
-    query(sql: string, params: {}): any {
-        const query = this.db.query(sql);
-        return query.all(params);
-    }
+	query<T, U>(sql: string, params: U): T[] {
+		const query = this.db.query(sql);
+		return query.all(params as SQLQueryBindings) as T[];
+	}
 
-    queryFirst(sql: string, params: {}): any {
-        const query = this.db.query(sql);
-        return query.get(params);
-
-    }
+	queryFirst<T, U>(sql: string, params: U): T {
+		const query = this.db.query(sql);
+		return query.get(params as SQLQueryBindings) as T;
+	}
 }
