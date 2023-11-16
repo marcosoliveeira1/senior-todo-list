@@ -15,35 +15,12 @@ on:
   workflow_dispatch:
 jobs:
   setup-bun:
-    runs-on: ${{ matrix.os }}
-    continue-on-error: true
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-        bun-version:
-          - latest
+    runs-on: ubuntu-latest
     steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
-      - id: change-folder
-        run: cd backend
-      - id: setup-bun
-        name: Setup Bun
-        uses: ./
-        with:
-          bun-version: ${{ matrix.bun-version }}
+      - run: cd backend
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
 
-      - id: verify-bun
-        name: Verify Bun
-        run: |
-          bun --version
-      - id: install-packages
-        name: Install packages
-        run: |
-          bun install
-      - id: run-tests
-        name: Run Tests
-        run: |
-          bun run test:coverage
+      # run any `bun` or `bunx` command
+      - run: bun install
+      - run: bun run test:coverage
