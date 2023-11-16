@@ -1,0 +1,24 @@
+{
+  "name": "senior-todo-backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development bun --watch src/index.ts",
+    "test:coverage": "NODE_ENV=test bun test --coverage",
+    "test:watch": "NODE_ENV=test bun test --watch",
+    "test": "NODE_ENV=test bun test",
+    "build": "NODE_ENV=production bun build src/index.ts --outdir ./out --target=bun",
+    "start": "bun run build && bun run out/index.js"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/swagger": "^0.7.4",
+    "drizzle-orm": "^0.29.0",
+    "elysia": "^0.7.25"
+  }
+}
