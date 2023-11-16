@@ -1,0 +1,265 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Todo list app documentation",
+        "description": "Development documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/todo": {
+            "post": {
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "done": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "description",
+                                        "done"
+                                    ]
+                                }
+                            },
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "done": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "description",
+                                        "done"
+                                    ]
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "done": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "description",
+                                        "done"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "errors"
+                                    ]
+                                }
+                            },
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "errors"
+                                    ]
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "postTodo",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "description"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "description"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        "text/plain": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "description"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getTodo",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/todo/{id}/toggle": {
+            "post": {
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "operationId": "postTodoByIdToggle",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "done": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "done"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "done": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "done"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        "text/plain": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "done": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "done"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {}
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}

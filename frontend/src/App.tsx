@@ -29,7 +29,9 @@ function App() {
   const [description, setDescription] = useState('');
 
   function addTodo(description: string) {
-    if (!description) return;
+    if (description.trim() === '') return;
+    if(todos.some((todo) => todo.description === description)) return;
+    if(todos.filter((todo) => !todo.done).length >= 5) return;
     const newTodos = [...todos, { id: uuidv4(), description, done: false }];
     setTodos(newTodos);
     setDescription('');

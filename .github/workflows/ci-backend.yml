@@ -17,10 +17,10 @@ jobs:
   setup-bun:
     runs-on: ubuntu-latest
     steps:
-      - run: cd backend
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
-
+      - run: ls -la
+      - run: cd backend && ls -la
       # run any `bun` or `bunx` command
-      - run: bun install
-      - run: bun run test:coverage
+      - run: cd backend && ls -la && bun install
+      - run: cd backend && ls -la && bun run test:coverage
