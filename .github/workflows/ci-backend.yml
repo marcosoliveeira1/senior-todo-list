@@ -29,5 +29,8 @@ jobs:
       - name: Run lint
         run: cd backend && bun run lint
 
+      - name: Run tests
+        run: cd backend && bun run test
+
       - name: Run tests with coverage
         run: cd backend && bun run test:coverage
