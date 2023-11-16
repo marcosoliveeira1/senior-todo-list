@@ -1,3 +1,4 @@
+import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import Elysia, { t } from "elysia";
 import { IHttpServer, RouteType } from "../core/interface/http/i-http-server";
@@ -8,6 +9,9 @@ export class ElysiaHttpServer implements IHttpServer<ElysiaHttpServer> {
 
 	constructor(isDevelopment: boolean) {
 		this.app = new Elysia();
+
+		this.app.use(cors());
+
 		if (isDevelopment) {
 			this.app.use(
 				swagger({
