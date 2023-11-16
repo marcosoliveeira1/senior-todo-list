@@ -27,11 +27,14 @@ jobs:
       - id: checkout
         name: Checkout
         uses: actions/checkout@v3
+      - id: change-folder
+        run: cd backend
       - id: setup-bun
         name: Setup Bun
-        uses: ./backend
+        uses: ./
         with:
           bun-version: ${{ matrix.bun-version }}
+
       - id: verify-bun
         name: Verify Bun
         run: |
