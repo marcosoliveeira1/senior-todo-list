@@ -9,8 +9,8 @@
     "test": "NODE_ENV=test bun test",
     "build": "NODE_ENV=production bun build src/index.ts --outdir ./out --target=bun",
     "start": "bun run build && bun run out/index.js",
-    "lint:format": "bun biome format --write ./src",
-    "lint:fix": "bun biome check --apply ./src",
+    "lint:format": "bun biome format --write ./",
+    "lint:fix": "bun biome check --apply ./",
     "lint": "bun run lint:fix && bun run lint:format"
   },
   "devDependencies": {
