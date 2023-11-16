@@ -1,4 +1,4 @@
 export interface IDatabaseConnection {
-    query(sql: string, params?: any): any
-    queryFirst(sql: string, params?: any): any
+	query<T, U>(sql: string, params?: U): T[];
+	queryFirst<T, U>(sql: string, params?: U): T;
 }

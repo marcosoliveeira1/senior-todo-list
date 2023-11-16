@@ -1,35 +1,42 @@
-import { DomainException } from "../../exception/domain-exception";
 import { Todo } from "../../../domain/todo";
+import { ApplicationException } from "../../exception/application-exception";
+import { DomainException } from "../../exception/domain-exception";
 import { ITodoRepository } from "../../repository/i-todo-repository";
+import { IUseCase } from "../i-use-case";
 import { CreateTodoInput } from "./create-todo-input";
 import { CreateTodoOutput } from "./create-todo-output";
-import { ApplicationException } from "../../exception/application-exception";
-import { IUseCase } from "../i-use-case";
 
-export class CreateTodoUseCase implements IUseCase<CreateTodoInput, CreateTodoOutput> {
-    public constructor(private readonly repository: ITodoRepository) { }
+export class CreateTodoUseCase
+	implements IUseCase<CreateTodoInput, CreateTodoOutput>
+{
+	public constructor(private readonly repository: ITodoRepository) {}
 
-    async execute({ id, description }: CreateTodoInput): Promise<DomainException | CreateTodoOutput> {
-        const todoOrError = Todo.create({ id, description });
-        if (todoOrError instanceof DomainException) {
-            return todoOrError;
-        }
+	async execute({
+		id,
+		description,
+	}: CreateTodoInput): Promise<DomainException | CreateTodoOutput> {
+		const todoOrError = Todo.create({ id, description });
+		if (todoOrError instanceof DomainException) {
+			return todoOrError;
+		}
 
-        const todo = todoOrError as Todo;
+		const todo = todoOrError as Todo;
 
-        const existDuplicated = await this.repository.findByDescription(todo.description.value);
+		const existDuplicated = await this.repository.findByDescription(
+			todo.description.value,
+		);
 
-        if (existDuplicated) {
-            return new ApplicationException("Todo already exists");
-        }
+		if (existDuplicated) {
+			return new ApplicationException("Todo already exists");
+		}
 
-        const todoExists = await this.repository.findById(todo.id);
-        if(todoExists) {
-            return new ApplicationException("Todo with this id already exists");
-        }
+		const todoExists = await this.repository.findById(todo.id);
+		if (todoExists) {
+			return new ApplicationException("Todo with this id already exists");
+		}
 
-        await this.repository.save(todo);
+		await this.repository.save(todo);
 
-        return new CreateTodoOutput(todo.id, todo.description.value, todo.done);
-    }
+		return new CreateTodoOutput(todo.id, todo.description.value, todo.done);
+	}
 }

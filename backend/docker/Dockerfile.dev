@@ -1,0 +1,28 @@
+# Development stage
+FROM oven/bun as development
+
+WORKDIR /app
+
+# Copy only the necessary files for installing dependencies
+COPY package.json .
+COPY bun.lockb .
+RUN [ -d node_modules ] || mkdir node_modules
+
+
+RUN files="$(ls -la)" && echo $files
+
+# Install all dependencies (including devDependencies)
+RUN bun install
+RUN files="$(ls -la)" && echo $files
+
+# Copy the entire application
+COPY . .
+RUN files="$(ls -la)" && echo $files
+
+# Set environment variable for development
+ENV NODE_ENV development
+
+# Command to run the application in watch mode
+CMD ["bun", "run", "dev", "--watch"]
+
+EXPOSE 3000

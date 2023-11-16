@@ -1,3 +1,3 @@
-export interface IController {
-    execute(input: any): Promise<any>;
+export interface IController<Input, Output> {
+	execute(input: Input): Promise<Output>;
 }
