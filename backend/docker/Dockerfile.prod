@@ -1,0 +1,22 @@
+# Production stage
+FROM oven/bun as production
+
+WORKDIR /app
+
+# Copy only the necessary files for installing production dependencies
+COPY package.json .
+
+# Install only production dependencies
+RUN bun install
+
+# Copy the source code
+COPY src src
+COPY tsconfig.json .
+
+# Set environment variable for production
+ENV NODE_ENV production
+
+# Command to run the application
+CMD ["bun", "run", "build"]
+
+EXPOSE 3000
